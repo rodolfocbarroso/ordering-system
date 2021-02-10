@@ -5,9 +5,9 @@ using Flunt.Notifications;
 
 namespace Orders.Domain.Entities.Base
 {
-    public class Entity : Notifiable
+    public abstract class Entity : Notifiable
     {
-        public Entity()
+        protected Entity()
         {
             Id = Guid.NewGuid();
         }
