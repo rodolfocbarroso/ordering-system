@@ -13,7 +13,6 @@ namespace Orders.Domain.Entities
             AddNotifications(
                 new Contract()
                     .Requires()
-                    .IsLowerOrEqualsThan(line, 0, "Line", "A linha inválida.")
                     .IsNotNullOrEmpty(name, "Name", "O nome não pode ser vazio.")
                     .HasMaxLen(name, 50, "Name", "O nome não pode ter tamanho maior que 50 caracteres.")
                     .IsNotNull(deliveryDate, "DeliveryDate", "A data de entrega não pode ser vazia.")
