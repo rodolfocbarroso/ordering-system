@@ -13,9 +13,10 @@ namespace Orders.Domain.Entities
             AddNotifications(
                 new Contract()
                     .Requires()
+                    .AreEquals(line, 0, "Line", "A linha está inválida.")
                     .IsNotNullOrEmpty(name, "Name", "O nome não pode ser vazio.")
                     .HasMaxLen(name, 50, "Name", "O nome não pode ter tamanho maior que 50 caracteres.")
-                    .IsNotNull(deliveryDate, "DeliveryDate", "A data de entrega não pode ser vazia.")
+                    .AreEquals(deliveryDate, new DateTime(0001, 01, 01), "DeliveryDate", "A data de entrega não pode ser vazia.")
                     .IsLowerOrEqualsThan(deliveryDate, DateTime.Today, "DeliveryDate", "A data de entrega não pode ser menor ou igual ao dia de hoje.")
                     .IsLowerOrEqualsThan(quantity, 0, "Quantity", "A quantidade não pode ser menor ou igual a zero.")
                     .IsLowerOrEqualsThan(unitPrice, 0, "UnitPrice", "O preço unitário não pode menor ou igual a zero.")
