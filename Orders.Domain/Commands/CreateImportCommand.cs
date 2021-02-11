@@ -14,19 +14,16 @@ namespace Orders.Domain.Commands
         {
             Items = new List<CreateImportItemCommand>();
         }
-        public CreateImportCommand(FileExtension fileExtension, ImportStatus importStatus, IList<CreateImportItemCommand> items)
+        public CreateImportCommand(FileExtension fileExtension, IList<CreateImportItemCommand> items)
         {
-            Instant = DateTime.Now;
             FileType = fileExtension;
-            ImportStatus = importStatus;
             Items = items;
         }
 
-        public DateTime Instant { get; private set; }
-        public ImportStatus ImportStatus { get; private set; }
         public FileExtension FileType { get; private set; }
 
         public IList<CreateImportItemCommand> Items { get; private set; }
+
         public void Validate()
         {
         }
