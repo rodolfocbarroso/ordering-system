@@ -8,16 +8,14 @@ namespace Orders.Domain.Entities
 {
     public class Import : Entity
     {
-        public Import(FileExtension fileExtension, ImportStatus importStatus)
+        public Import(FileExtension fileExtension)
         {
             Instant = DateTime.Now;
             FileType = fileExtension;
-            ImportStatus = importStatus;
             Items = new List<ImportItem>();
         }
 
         public DateTime Instant { get; private set; }
-        public ImportStatus ImportStatus { get; private set; }
         public FileExtension FileType { get; private set; }
 
         public IList<ImportItem> Items { get; private set; }
