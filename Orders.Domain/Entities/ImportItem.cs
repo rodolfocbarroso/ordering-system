@@ -13,13 +13,16 @@ namespace Orders.Domain.Entities
             AddNotifications(
                 new Contract()
                     .Requires()
-                    .AreEquals(line, 0, "Line", "A linha está inválida.")
+                    .AreNotEquals(line, 0, "Line", "A linha está inválida.")
                     .IsNotNullOrEmpty(name, "Name", "O nome não pode ser vazio.")
                     .HasMaxLen(name, 50, "Name", "O nome não pode ter tamanho maior que 50 caracteres.")
-                    .AreEquals(deliveryDate, new DateTime(0001, 01, 01), "DeliveryDate", "A data de entrega não pode ser vazia.")
-                    .IsLowerOrEqualsThan(deliveryDate, DateTime.Today, "DeliveryDate", "A data de entrega não pode ser menor ou igual ao dia de hoje.")
-                    .IsLowerOrEqualsThan(quantity, 0, "Quantity", "A quantidade não pode ser menor ou igual a zero.")
-                    .IsLowerOrEqualsThan(unitPrice, 0, "UnitPrice", "O preço unitário não pode menor ou igual a zero.")
+                    .AreNotEquals(deliveryDate, new DateTime(0001, 01, 01), "DeliveryDate", "A data de entrega não pode ser vazia.")
+                    .AreNotEquals(deliveryDate, DateTime.Today, "DeliveryDate", "A data de entrega não pode ser igual ao dia de hoje.")
+                    .IsGreaterThan(deliveryDate, DateTime.Today, "DeliveryDate", "A data de entrega não pode ser menor que o dia de hoje.")
+                    .AreNotEquals(quantity, 0, "Quantity", "A quantidade não pode ser igual a zero.")
+                    .IsGreaterThan(quantity, 0, "Quantity", "A quantidade não pode ser menor que zero.")
+                    .AreNotEquals(unitPrice, 0, "UnitPrice", "O preço unitário não pode ser igual a zero.")
+                    .IsGreaterThan(unitPrice, 0, "UnitPrice", "O preço unitário não pode ser menor que zero.")
             );
 
             Line = line;
