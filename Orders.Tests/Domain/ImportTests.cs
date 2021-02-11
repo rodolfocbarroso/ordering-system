@@ -10,7 +10,7 @@ namespace Orders.Tests.Domain
     [TestClass]
     public class ImportTests
     {
-        private readonly Import _import = new Import(FileExtension.Xlsx, ImportStatus.Pending);
+        private readonly Import _import = new Import(FileExtension.Xlsx);
 
         [TestMethod]
         [TestCategory("Domain")]
