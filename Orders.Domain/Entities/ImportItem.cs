@@ -6,9 +6,9 @@ using Orders.Domain.Entities.Base;
 
 namespace Orders.Domain.Entities
 {
-    public class SpreadsheetItem : Entity
+    public class ImportItem : Entity
     {
-        public SpreadsheetItem(long line, string name, DateTime deliveryDate, int quantity, decimal unitPrice)
+        public ImportItem(long line, string name, DateTime deliveryDate, int quantity, decimal unitPrice)
         {
             AddNotifications(
                 new Contract()
