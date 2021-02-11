@@ -4,7 +4,7 @@ using System.Text;
 using Orders.Domain.Entities.Base;
 using Orders.Domain.Enums;
 
-namespace Orders.Domain.Entities.Base
+namespace Orders.Domain.Entities
 {
     public class Import : Entity
     {
