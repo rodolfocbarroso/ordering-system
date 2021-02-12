@@ -19,7 +19,7 @@ namespace Orders.Domain.Commands
             Name = name;
             DeliveryDate = deliveryDate;
             Quantity = quantity;
-            UnitPrice = unitPrice;
+            UnitPrice = Math.Round(unitPrice, 2);
         }
 
         public long Line { get; set; }
@@ -30,20 +30,7 @@ namespace Orders.Domain.Commands
 
         public void Validate()
         {
-            AddNotifications(
-                new Contract()
-                    .Requires()
-                    .AreNotEquals(Line, 0, "Line", "A linha está inválida.")
-                    .IsNotNullOrEmpty(Name, "Name", "O nome não pode ser vazio.")
-                    .HasMaxLen(Name, 50, "Name", "O nome não pode ter tamanho maior que 50 caracteres.")
-                    .AreNotEquals(DeliveryDate, new DateTime(0001, 01, 01), "DeliveryDate", "A data de entrega não pode ser vazia.")
-                    .AreNotEquals(DeliveryDate, DateTime.Today, "DeliveryDate", "A data de entrega não pode ser igual ao dia de hoje.")
-                    .IsGreaterThan(DeliveryDate, DateTime.Today, "DeliveryDate", "A data de entrega não pode ser menor que o dia de hoje.")
-                    .AreNotEquals(Quantity, 0, "Quantity", "A quantidade não pode ser igual a zero.")
-                    .IsGreaterThan(Quantity, 0, "Quantity", "A quantidade não pode ser menor que zero.")
-                    .AreNotEquals(UnitPrice, 0, "UnitPrice", "O preço unitário não pode ser igual a zero.")
-                    .IsGreaterThan(UnitPrice, 0, "UnitPrice", "O preço unitário não pode ser menor que zero.")
-            );
+
         }
     }
 }
