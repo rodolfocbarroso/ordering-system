@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Orders.Domain.Entities;
 using Orders.Domain.Repositories.Contracts;
@@ -25,18 +26,25 @@ namespace Orders.Infra.Repositories
             _context.SaveChanges();
         }
 
-        public Import GetById(Guid id)
+        public async Task<Import> GetById(Guid id)
         {
-            return _context.Imports
-                .FirstOrDefault(import => import.Id == id);
+            return await _context.Imports
+                .FirstOrDefaultAsync(import => import.Id == id);
         }
 
-        public IEnumerable<Import> GetAll()
+        public async Task<IEnumerable<dynamic>> GetAll()
         {
-            return _context.Imports
+            return await _context.Imports
                 .AsNoTracking()
                 .OrderBy(import => import.Instant)
-                .ToList();
+                .Select(Import =>
+                    new
+                    {
+                        Date = Import.Instant,
+                        total = Import.Items.Count
+                    })
+                .ToListAsync();
+
         }
     }
 }
