@@ -7,6 +7,6 @@ namespace Orders.Domain.Handlers.Contracts
 {
     public interface IHandler<T> where T : ICommand
     {
-        void Handle();
+        ICommandResult Handle(T command);
     }
 }

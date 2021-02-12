@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Flunt.Notifications;
 using Orders.Domain.Commands;
@@ -24,27 +26,23 @@ namespace Orders.Domain.Handlers
 
         public ICommandResult Handle(CreateImportCommand command)
         {
-            command.Validate();
-            if (command.Invalid)
-                return new GenericCommandResult(false, "Ops, os dados do arquivo estão inconsistentes!", command.Notifications);
-
-            var import = new Import(command.FileType);
+            var import = new Import(command.FileExtension);
             foreach (var item in command.Items)
             {
                 import.AddItem(item.Line, item.Name, item.DeliveryDate, item.Quantity, item.UnitPrice);
             }
 
-            AddNotifications(import.Notifications);
+            var importItemsInvalid = import.Items
+                .Where(importItem => importItem.Notifications.Count > 0)
+                .Select(importItem => new { line = importItem.Line, notifications = importItem.Notifications })
+                .ToList();
 
-            if (Invalid)
-                return new GenericCommandResult(false, "Falha ao importar o arquivo.", Notifications);
+            if (importItemsInvalid.Count > 0)
+                return new GenericCommandResult(false, "Falha ao importar o arquivo!", importItemsInvalid);
 
             _importRepository.Save(import);
-            return new GenericCommandResult(true, "Importação do arquivo gerada com sucesso!", import.Id);
-        }
 
-        public void Handle()
-        {
+            return new GenericCommandResult(true, "Importação de arquivo gerada com sucesso.", new { id = import.Id });
         }
     }
 }
