@@ -11,12 +11,12 @@ namespace Orders.Domain.Entities
         public Import(FileExtension fileExtension)
         {
             Instant = DateTime.Now;
-            FileType = fileExtension;
+            FileExtension = fileExtension;
             Items = new List<ImportItem>();
         }
 
         public DateTime Instant { get; private set; }
-        public FileExtension FileType { get; private set; }
+        public FileExtension FileExtension { get; private set; }
 
         public IList<ImportItem> Items { get; private set; }
 
