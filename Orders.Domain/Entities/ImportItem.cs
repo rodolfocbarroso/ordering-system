@@ -29,7 +29,7 @@ namespace Orders.Domain.Entities
             Name = name;
             DeliveryDate = deliveryDate;
             Quantity = quantity;
-            UnitPrice = unitPrice;
+            UnitPrice = Math.Round(unitPrice, 2);
         }
 
         public long Line { get; private set; }

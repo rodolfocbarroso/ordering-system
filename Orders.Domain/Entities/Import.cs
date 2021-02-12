@@ -23,8 +23,7 @@ namespace Orders.Domain.Entities
         public void AddItem(long line, string name, DateTime deliveryDate, int quantity, decimal unitPrice)
         {
             var item = new ImportItem(line, name, deliveryDate, quantity, unitPrice);
-            if (item.Valid)
-                Items.Add(item);
+            Items.Add(item);
         }
     }
 }
